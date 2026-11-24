@@ -72,3 +72,19 @@ function validateParam(obj, prop, validator, defaultValue) {
   }
 }
 exports.validateParam = validateParam
+
+function formatArticleSlug(title) {
+  if (!title) return ''
+  return String(title).toLowerCase().trim().replace(/\s+/g, '-')
+}
+exports.formatArticleSlug = formatArticleSlug
+
+function truncateSlug(slug, maxLength) {
+  return slug.length > maxLength ? slug.slice(0, maxLength) : slug
+}
+exports.truncateSlug = truncateSlug
+
+function isValidSlug(slug) {
+  return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)
+}
+exports.isValidSlug = isValidSlug
