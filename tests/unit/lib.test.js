@@ -154,4 +154,37 @@ describe('Unit Tests: Helpers & Utilities (lib.js)', () => {
       config.isDemo = originalIsDemo;
     });
   });
+
+  describe('formatArticleSlug', () => {
+    test('should convert title with spaces to lowercase hyphenated slug', () => {
+      const slug = lib.formatArticleSlug('Hello World From HCMUS');
+      expect(slug).toBe('hello-world-from-hcmus');
+    });
+
+    test('should return empty string for falsy input', () => {
+      expect(lib.formatArticleSlug('')).toBe('');
+      expect(lib.formatArticleSlug(null)).toBe('');
+    });
+  });
+
+  describe('truncateSlug', () => {
+    test('should cut slug longer than maxLength', () => {
+      expect(lib.truncateSlug('hello-world', 5)).toBe('hello');
+    });
+
+    test('should keep slug that is not longer than maxLength', () => {
+      expect(lib.truncateSlug('hello', 10)).toBe('hello');
+    });
+  });
+
+  describe('isValidSlug', () => {
+    test('should accept lowercase hyphenated slug', () => {
+      expect(lib.isValidSlug('hello-world-2')).toBe(true);
+    });
+
+    test('should reject uppercase, spaces and empty string', () => {
+      expect(lib.isValidSlug('Hello World')).toBe(false);
+      expect(lib.isValidSlug('')).toBe(false);
+    });
+  });
 });
